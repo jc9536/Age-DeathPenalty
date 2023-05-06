@@ -1,11 +1,7 @@
-Data Report \#1 - Age and Death Penalty
+Data Report \#1 - Age and Death Penality
 ================
 Jaimie Chin
 2023-05-05
-
-``` r
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ``` r
 # Load packages 
@@ -27,10 +23,30 @@ less?*
 # Load the dataset from .csv 
 filepath = 'data/age and death penalty.csv'
 df = read_csv(filepath, show_col_types = FALSE)
+```
 
+    ## New names:
+    ## • `` -> `...1`
+
+``` r
 # Let's take a look at what type of data we have
 df
 ```
+
+    ## # A tibble: 400 × 3
+    ##     ...1   Age `Support for Death Penalty`
+    ##    <dbl> <dbl>                       <dbl>
+    ##  1     1    65                           3
+    ##  2     2    53                           4
+    ##  3     3    18                           2
+    ##  4     4    47                           4
+    ##  5     5    23                           5
+    ##  6     6    63                           2
+    ##  7     7    63                           5
+    ##  8     8    83                           2
+    ##  9     9    18                           3
+    ## 10    10    18                           5
+    ## # … with 390 more rows
 
 ``` r
 # Let's rename our "Support for Death Penalty" for easier analysis later
@@ -42,6 +58,15 @@ df$SupportforDeathPenalty = as.factor(df$SupportforDeathPenalty)
 # Let's look at a summary of our data 
 summary(df)
 ```
+
+    ##       ...1            Age         SupportforDeathPenalty
+    ##  Min.   :  1.0   Min.   : 18.00   1: 31                 
+    ##  1st Qu.:100.8   1st Qu.: 23.00   2: 55                 
+    ##  Median :200.5   Median : 39.00   3: 90                 
+    ##  Mean   :200.5   Mean   : 42.77   4:100                 
+    ##  3rd Qu.:300.2   3rd Qu.: 57.00   5: 79                 
+    ##  Max.   :400.0   Max.   :121.00   6: 36                 
+    ##                                   7:  9
 
 The Age and Death Penalty data describes a situation where a survey of
 400 voters was conducted in a Virginian congressional district:
@@ -87,7 +112,9 @@ ggplot(data = df) +
        title = "Relationship Between Age & Support for Death Penalty")
 ```
 
-![Scatterplot](https://github.com/jc9536/Age-DeathPenalty/blob/main/plots/AgeSupportScatterPlot.jpg?raw=true)
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](Age-DeathPenalty_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Again, its difficult to discern any patterns in our data from the
 scatterplot. Let’s do a box plot instead to observe the distribution of
@@ -105,7 +132,7 @@ ggplot(df, aes(x = SupportforDeathPenalty, y = Age, fill = SupportforDeathPenalt
   ggtitle("Distribution of Age by Support for Death Penalty")
 ```
 
-![Boxplot](https://github.com/jc9536/Age-DeathPenalty/blob/main/plots/AgeSupportBoxPlot.jpg?raw=true)
+![](Age-DeathPenalty_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 A box and whisker plot of the data reveals the distribution of ages per
 strength of support for the death penalty. The plot reveals that there
@@ -138,6 +165,16 @@ df$Support_rank = rank(df$SupportforDeathPenalty)
 cor.test(df$Age_rank, df$Support_rank, method = "spearman", exact=FALSE)
 ```
 
+    ## 
+    ##  Spearman's rank correlation rho
+    ## 
+    ## data:  df$Age_rank and df$Support_rank
+    ## S = 11014744, p-value = 0.5151
+    ## alternative hypothesis: true rho is not equal to 0
+    ## sample estimates:
+    ##         rho 
+    ## -0.03263866
+
 For comparison, let’s also do a Pearson Correlation to support our
 previous intuition that a Spearman Correlation would be more
 appropriate.
@@ -146,6 +183,18 @@ appropriate.
 cor.test(df$Age, as.numeric(df$SupportforDeathPenalty))
 ```
 
+    ## 
+    ##  Pearson's product-moment correlation
+    ## 
+    ## data:  df$Age and as.numeric(df$SupportforDeathPenalty)
+    ## t = -0.61998, df = 398, p-value = 0.5356
+    ## alternative hypothesis: true correlation is not equal to 0
+    ## 95 percent confidence interval:
+    ##  -0.12872171  0.06719433
+    ## sample estimates:
+    ##         cor 
+    ## -0.03106204
+
 It looks like our intuition was reasonable as the Spearman’s rank
 correlation seems to be more significant compared to the Pearson.
 
@@ -153,6 +202,9 @@ correlation seems to be more significant compared to the Pearson.
 # Let's get our confidence intervals from our Spearman Correlation
 SpearmanRho(df$Age_rank, df$Support_rank, conf.level = 0.95)
 ```
+
+    ##         rho      lwr.ci      upr.ci 
+    ## -0.03263866 -0.13027347  0.06562307
 
 # 3. Report of the Results
 

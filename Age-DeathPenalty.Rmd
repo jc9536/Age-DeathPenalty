@@ -85,7 +85,7 @@ ggplot(df, aes(x = SupportforDeathPenalty, y = Age, fill = SupportforDeathPenalt
   ggtitle("Distribution of Age by Support for Death Penalty")
 ```
 
-A box and whisker plot of the data reveals the distribution of ages per strength of support for the death penalty. The plot reveals that there is unlikely a strong correlation or association between ages and spport for the death penalty since the distribution of ages is relatively similar across all support strengths except for a very strong support which has a distribution among younger ages. It is also important to note he outliers present within the dataset (participants who are 100+ years of age) that may affect the results. 
+A box and whisker plot of the data reveals the distribution of ages per strength of support for the death penalty. The plot reveals that there is unlikely a strong correlation or association between ages and support for the death penalty since the distribution of ages is relatively similar across all support strengths except for a very strong support which has a distribution among younger ages. It is also important to note the outliers present within the dataset (participants who are 100+ years of age) that may affect the results. 
 
 Since there does not seem to be a clear linear pattern between Age and Support for the Death Penalty, we should consider using a non-parametric test. The most common non-parametric test used to assess the relationship between two variables is the Spearman's rank correlation coefficient.
 
